@@ -69,6 +69,7 @@
 
 # 📁 ERD
 ### MySQL
+![ERD](./Docs/img/DBERD.png)
 
 
 ### MongoDB
