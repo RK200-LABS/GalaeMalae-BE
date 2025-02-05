@@ -1,5 +1,5 @@
 ---
-name: 버그 템플릿
+name: bug
 about: '버그 발생 시 사용하는 템플릿 '
 title: ''
 labels: ''

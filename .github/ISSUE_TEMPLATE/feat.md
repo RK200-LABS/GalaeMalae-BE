@@ -1,5 +1,5 @@
 ---
-name: 기능 사항 템플릿
+name: feat
 about: 추가하고자 하는 기능이 있을 때 사용하는 템플릿
 title: ''
 labels: ''

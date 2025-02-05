@@ -1,5 +1,5 @@
 ---
-name: 문서 템플릿
+name: docs
 about: 문서 생성 및 문서 삭제에 사용하는 템플릿
 title: ''
 labels: ''

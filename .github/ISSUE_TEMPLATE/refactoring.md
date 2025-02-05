@@ -1,5 +1,5 @@
 ---
-name: 개선사항 템플릿
+name: Refactoring
 about: 개선사항 시 사용하는 템플릿
 title: ''
 labels: ''

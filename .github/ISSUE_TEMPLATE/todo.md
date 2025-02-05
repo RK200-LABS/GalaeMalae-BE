@@ -1,5 +1,5 @@
 ---
-name: 작업 템플릿
+name: TODO
 about: 수행할 작업에 대해 사용하는 템플릿
 title: ''
 labels: ''

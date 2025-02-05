@@ -1,5 +1,5 @@
 ---
-name: 스타일 템플릿
+name: style
 about: 추가하고자 하는 스타일, UI가 있을 때 사용하는 템플릿
 title: ''
 labels: ''
