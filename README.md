@@ -1,3 +1,100 @@
+# GalaeMalae Backend
+
+## 프로젝트 시작하기
+
+### 1. 저장소 클론
+```bash
+git clone [repository-url]
+cd GalaeMalae-BE
+```
+
+### 2. Python 가상환경 설정
+```bash
+# 가상환경 생성
+python -m venv venv
+
+# 가상환경 활성화
+# Windows
+venv\Scripts\activate
+# macOS/Linux
+source venv/bin/activate
+```
+
+### 3. 의존성 설치
+```bash
+pip install -r requirements/dev.txt
+```
+
+### 4. 환경 변수 설정
+1. 프로젝트 루트 디렉토리에 `.env` 파일 생성
+2. 다음 내용을 복사하여 붙여넣기:
+```
+# Database settings
+MYSQL_USER=root
+MYSQL_PASSWORD=9177
+MYSQL_HOST=localhost
+MYSQL_PORT=3306
+MYSQL_DATABASE=galae_malae
+
+# API settings
+API_HOST=0.0.0.0
+API_PORT=8000
+```
+
+### 5. 데이터베이스 설정
+1. MySQL이 설치되어 있어야 합니다.
+2. MySQL에 접속하여 데이터베이스 생성:
+```sql
+CREATE DATABASE galae_malae;
+```
+
+### 6. 서버 실행
+```bash
+uvicorn app.main:app --reload
+```
+
+서버가 실행되면 다음 URL에서 API 문서를 확인할 수 있습니다:
+- Swagger UI: http://localhost:8000/docs
+- ReDoc: http://localhost:8000/redoc
+
+## 개발 가이드
+
+### API 엔드포인트
+- 사용자 관련: `/api/v1/users`
+
+### 데이터베이스 마이그레이션
+```bash
+# 마이그레이션 생성
+alembic revision --autogenerate -m "migration message"
+
+# 마이그레이션 적용
+alembic upgrade head
+```
+
+### 테스트
+```bash
+# 테스트 실행
+pytest
+```
+
+## 프로젝트 구조
+```
+GalaeMalae-BE/
+├── app/
+│   ├── api/
+│   │   └── v1/
+│   │       └── endpoints/
+│   ├── core/
+│   ├── db/
+│   ├── models/
+│   └── schemas/
+├── requirements/
+│   ├── base.txt
+│   └── dev.txt
+├── .env
+└── README.md
+```
+
 # 갈래말래
 
 # 📌 
@@ -6,7 +103,7 @@
 
 <br>
 
-# 👨‍👧‍👦 팀 소개
+# ��‍👧‍👦 팀 소개
 
 ### **팀명 : RK200 LABS**
 마커스의 의지를 이을자들의 모임
@@ -355,7 +452,7 @@ branch는 작업 단위 & 기능 단위로 생성된 issue를 기반으로 합�
 
 ### 5. `long`형 값의 마지막에 `L`붙이기
 
-> long형의 숫자에는 마지막에 대문자 'L’을 붙인다. 소문자 'l’보다 숫자 '1’과의 차이가 커서 가독성이 높아진다.
+> long형의 숫자에는 마지막에 대문자 'L'을 붙인다. 소문자 'l'보다 숫자 '1'과의 차이가 커서 가독성이 높아진다.
 >
 
 </div>
@@ -421,7 +518,7 @@ branch는 작업 단위 & 기능 단위로 생성된 issue를 기반으로 합�
 
 ### 2. Branch Naming Rule
 
-branch를 생성하기 전 issue를 먼저 작성합니다. issue 작성 후 생성되는 번호와 domain 명을 조합하여 branch의 이름을 결정합니다. `<Prefix>/<Issue_Number>-<Domain>` 의 양식을 준수합니다.
+branch를 생성하기 전 issue를 먼저 작성합니다. issue 작성 후 생성되는 번호와 domain 명을 조합하여 branch의 이름을 결정합니다. `Prefix/Issue_Number-Domain` 의 양식을 준수합니다.
 
 ### 3. Prefix
 
@@ -454,15 +551,12 @@ issue 생성 시 github 오른편의 assignee, label을 적용합니다. assigne
 
 ### 2. Issue Naming Rule
 
-`[<Prefix>] <Description>` 의 양식을 준수하되, prefix는 commit message convention을 따릅니다.
+`Prefix <Description>` 의 양식을 준수하되, prefix는 commit message convention을 따릅니다.
 
 ### 3. Etc
 
-<aside>
 [feat] 약속 잡기 API 구현
 <br/>[chore] spring data JPA 의존성 추가
-
-</aside>
 
 ---
 
@@ -475,15 +569,15 @@ issue 생성 시 github 오른편의 assignee, label을 적용합니다. assigne
 
 ### 1. Commit Message Convention
 
-`[<Prefix>] #<Issue_Number> <Description>` 의 양식을 준수합니다.
+`Prefix #Issue_Number Description` 의 양식을 준수합니다.
 
-- **feat** : 새로운 기능 구현 `[feat] #11 구글 로그인 API 기능 구현`
-- **fix** : 코드 오류 수정 `[fix] #10 회원가입 비즈니스 로직 오류 수정`
-- **del** : 쓸모없는 코드 삭제 `[del] #12 불필요한 import 제거`
-- **docs** : README나 wiki 등의 문서 개정 `[docs] #14 리드미 수정`
-- **refactor** : 내부 로직은 변경 하지 않고 기존의 코드를 개선하는 리팩터링 `[refactor] #15 코드 로직 개선`
-- **chore** : 의존성 추가, yml 추가와 수정, 패키지 구조 변경, 파일 이동 `[chore] #21 yml 수정`, `[chore] #22 lombok 의존성 추가`
-- **test**: 테스트 코드 작성, 수정 `[test] #20 로그인 API 테스트 코드 작성`
+- **feat** : 새로운 기능 구현 `feat #11 구글 로그인 API 기능 구현`
+- **fix** : 코드 오류 수정 `fix #10 회원가입 비즈니스 로직 오류 수정`
+- **del** : 쓸모없는 코드 삭제 `del #12 불필요한 import 제거`
+- **docs** : README나 wiki 등의 문서 개정 `docs #14 리드미 수정`
+- **refactor** : 내부 로직은 변경 하지 않고 기존의 코드를 개선하는 리팩터링 `refactor #15 코드 로직 개선`
+- **chore** : 의존성 추가, yml 추가와 수정, 패키지 구조 변경, 파일 이동 `chore #21 yml 수정`, `chore #22 lombok 의존성 추가`
+- **test**: 테스트 코드 작성, 수정 `test #20 로그인 API 테스트 코드 작성`
 - **style** : 코드에 관련 없는 주석 달기, 줄바꿈
 - **rename** : 파일 및 폴더명 수정
 
@@ -500,7 +594,7 @@ develop & main branch로 merge할 때에는 pull request가 필요합니다. pul
 
 ### 2. Pull Request Naming Rule
 
-`[<Prefix>] <Description>` 의 양식을 준수하되, prefix는 commit message convention을 따릅니다.
+`Prefix <Description>` 의 양식을 준수하되, prefix는 commit message convention을 따릅니다.
 
 ### 3. Etc
 
