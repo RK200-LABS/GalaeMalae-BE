@@ -42,21 +42,21 @@ jobs:
             git reset --hard origin/main
 
             # (3) Docker 이미지 빌드
-            docker build -t fastapi-app:latest .
+            docker build -t GalaeMalae-app:latest .
 
             # (4) 기존 컨테이너 종료 및 삭제 (있으면)
-            if [ "$(docker ps -q -f name=fastapi-container)" ]; then
-              docker stop fastapi-container
-              docker rm fastapi-container
+            if [ "$(docker ps -q -f name=GalaeMalae-container)" ]; then
+              docker stop GalaeMalae-container
+              docker rm GalaeMalae-container
             fi
 
             # (5) 새 컨테이너 실행
             docker run -d \
-              --name fastapi-container \
+              --name GalaeMalae-container \
               -p 8000:8000 \
-              fastapi-app:latest
+              GalaeMalae-app:latest
 
             # (선택) 컨테이너 로그 확인 (디버깅용)
-            docker logs fastapi-container --tail 100
+            docker logs GalaeMalae-container --tail 100
           EOF
         shell: bash
