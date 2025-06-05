@@ -1,5 +1,5 @@
 # .github/workflows/deploy.yml
-name: CI/CD: FastAPI → Home Server Docker
+name: "CI/CD: FastAPI → Home Server Docker"
 
 on:
   push:
