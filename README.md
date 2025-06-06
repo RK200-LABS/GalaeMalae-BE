@@ -8,6 +8,7 @@ git clone [repository-url]
 cd GalaeMalae-BE
 ```
 
+
 ### 2. Python 가상환경 설정
 ```bash
 # 가상환경 생성
