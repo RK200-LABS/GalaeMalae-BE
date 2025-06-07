@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
-from app.schemas.survey import SurveySubmit
+from app.schemas.survey import SurveySubmit, SurveyResult
 router = APIRouter()
 
 @router.post("/submit")

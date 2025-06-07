@@ -8,3 +8,6 @@ class SurveySubmit(BaseModel):
     q5 : str
     q6 : str
     q7 : str
+
+class SurveyResult(BaseModel):
+    result : str

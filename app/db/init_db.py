@@ -1,5 +1,9 @@
 from app.db.session import engine, Base
 from app.models.user import User  # 모든 모델을 여기서 import
+from app.models.destination import Destination
+from app.models.tag import Tag
+from app.models.destination_tag import DestinationTag
+
 
 def init_db():
     print("Creating database tables...")
