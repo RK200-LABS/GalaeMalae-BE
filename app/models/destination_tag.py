@@ -1,4 +1,6 @@
 from sqlalchemy import Column, Integer, ForeignKey
+from sqlalchemy.orm import relationship
+
 from app.db.session import Base
 
 class DestinationTag(Base):
@@ -8,5 +10,4 @@ class DestinationTag(Base):
     destination_id = Column(Integer, ForeignKey("destination.id"))
     tag_id = Column(Integer, ForeignKey("tag.id"))
     score = Column(Integer, default=0)
-    weight_score = Column(Integer, default=0)
     

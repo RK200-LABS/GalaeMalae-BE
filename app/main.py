@@ -26,6 +26,7 @@ app.add_middleware(
 # API 라우터 등록
 app.include_router(users.router, prefix="/api/v1/users", tags=["users"])
 app.include_router(survey.router, prefix="/api/v1/survey", tags=["survey"])
+
 @app.get("/")
 async def root():
     return {"message": "Welcome to GalaeMalae API"}
