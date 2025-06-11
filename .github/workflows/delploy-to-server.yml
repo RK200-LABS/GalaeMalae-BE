@@ -1,66 +1,31 @@
-# .github/workflows/deploy.yml
-name: "CI/CD: FastAPI → Home Server Docker"
+name: Code deploy
 
 on:
-  push:
-    branches:
+  workflow_dispatch: # 이 태그가 있으면 workflow를 매뉴얼하게 트리거할 수 있음.
+  push: # push할 때 작동
+    branches: # 대상이 될 브랜치
       - main
-
+      
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1) 소스 체크아웃
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-      # 2) SSH 설정 (비밀 키 복사, 권한 설정)
-      - name: Set up SSH private key
-        run: |
-          echo "== [SSH SETUP] 시작 =="
+      - name: Create SSH Key
+        run: | # access key를 actions 내부 워크스페이스에 pem파일로 저장하고 권한을 확보
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/private-key.pem
+          chmod 600 ~/private-key.pem
+      - name: Create SSH directory # .ssh 디렉토리 생성
+        run: | 
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/ralo.pem
-          chmod 400 ~/.ssh/ralo.pem
-          echo "== [SSH SETUP] ssh-keyscan 실행 중 =="
-          ssh-keyscan ${{ secrets.REMOTE_HOST }} >> ~/.ssh/known_hosts
-          echo "== [SSH SETUP] 완료 =="
-        shell: bash
-
-      # 3) SSH로 서버 접속 후 배포
-      - name: Deploy to server via SSH
+      - name: Add known host # known host에 해당 키를 추가
         run: |
-          echo "== [DEPLOY] SSH 접속 시작 =="
-          ssh -i ~/.ssh/ralo.pem -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
-            echo "== [서버 접속 성공] =="
-
-            set -e
-
-            echo "== (1) 프로젝트 디렉토리 이동 =="
-            cd /home/rlacks2011/GalaeMalae/GalaeMalae-BE || { echo "❌ 디렉토리 이동 실패"; exit 1; }
-
-            echo "== (2) Git 최신 코드 가져오기 =="
-            git fetch origin main || { echo "❌ git fetch 실패"; exit 1; }
-            git reset --hard origin/main || { echo "❌ git reset 실패"; exit 1; }
-
-            echo "== (3) Docker 이미지 빌드 =="
-            docker build -t galaemalae-app:latest . || { echo "❌ Docker 빌드 실패"; exit 1; }
-
-            echo "== (4) 기존 컨테이너 중지 및 삭제 =="
-            if [ "$(docker ps -q -f name=galaemalae-container)" ]; then
-              docker stop galaemalae-container || echo "⚠️ 컨테이너 중지 실패 (무시)"
-              docker rm galaemalae-container || echo "⚠️ 컨테이너 삭제 실패 (무시)"
-            fi
-
-            echo "== (5) 새 컨테이너 실행 =="
-            docker run -d \
-              --name galaemalae-container \
-              -p 8000:8000 \
-              galaemalae-app:latest || { echo "❌ 컨테이너 실행 실패"; exit 1; }
-
-            echo "== (6) 컨테이너 로그 확인 (마지막 100줄) =="
-            docker logs galaemalae-container --tail 100 || echo "⚠️ 로그 확인 실패 (무시)"
-
-            echo "✅ [DEPLOY 완료]"
-          EOF
-        shell: bash
+          ssh-keyscan ${{ secrets.REMOTE_HOST }} >> ~/.ssh/known_hosts
+      - name: Copy files to remote server # github repo의 모든 파일을 target 경로에 복사함.
+        run: |
+          cd ${{ github.workspace }}
+          scp -i ~/private-key.pem -r ./* ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.REMOTE_TARGET }}
+          echo "Copied files to remote server"
