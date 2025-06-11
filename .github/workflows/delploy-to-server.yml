@@ -23,7 +23,7 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/ralo.pem
           chmod 400 ~/.ssh/ralo.pem
           echo "== [SSH SETUP] ssh-keyscan 실행 중 =="
-          ssh-keyscan -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts || { echo "❌ ssh-keyscan 실패"; exit 1; }
+          ssh-keyscan -o KexAlgorithms=+diffie-hellman-group14-sha1 -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts || { echo "❌ ssh-keyscan 실패"; exit 1; }
           echo "== [SSH SETUP] 완료 =="
         shell: bash
 
