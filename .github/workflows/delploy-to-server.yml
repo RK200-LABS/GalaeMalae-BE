@@ -56,7 +56,7 @@ jobs:
               -e MYSQL_USER=${{ secrets.DB_USER }} \
               -e MYSQL_PASSWORD=${{ secrets.DB_PASSWORD }} \
               -e MYSQL_DATABASE=galae_malae \
-              -e API_HOST=0.0.0.0 \  
+              -e API_HOST=0.0.0.0 \
               -p 8082:8082 \
               galaemalae-app:latest || { echo "❌ 컨테이너 실행 실패"; exit 1; }
             echo "== (6) 컨테이너 로그 확인 (마지막 100줄) =="
