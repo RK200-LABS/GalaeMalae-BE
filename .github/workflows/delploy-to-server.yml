@@ -51,6 +51,12 @@ jobs:
             docker run -d \
               --name galaemalae-container \
               --network attendance-deploy_attendance-net \
+              --label traefik.enable=true \\
+              --label 'traefik.http.routers.galaemalae.rule=Host(`api.galaemalae.com`)' \\
+              --label traefik.http.routers.galaemalae.entrypoints=websecure \\
+              --label traefik.http.routers.galaemalae.tls=true \\
+              --label traefik.http.routers.galaemalae.tls.certresolver=letsencrypt \\
+              --label traefik.http.services.galaemalae.loadbalancer.server.port=8082 \\
               -e MYSQL_HOST=attendance_db \
               -e MYSQL_PORT=3306 \
               -e MYSQL_USER=${{ secrets.DB_USER }} \
@@ -60,6 +66,8 @@ jobs:
               -p 8082:8082 \
               galaemalae-app:latest || { echo "❌ 컨테이너 실행 실패"; exit 1; }
             echo "== (6) 컨테이너 로그 확인 (마지막 100줄) =="
+
+            docker network connect web galaemalae-container
             docker logs galaemalae-container --tail 100 || echo "⚠️ 로그 확인 실패 (무시)"
             echo "✅ [DEPLOY 완료]"
           EOF
