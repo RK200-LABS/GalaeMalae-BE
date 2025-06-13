@@ -47,6 +47,12 @@ jobs:
             echo "== (5) 새 컨테이너 실행 =="
             docker run -d \
               --name galaemalae-container \
+              --network attendance-deploy_attendance-net \
+              -e DB_HOST=attendance_db \
+              -e DB_PORT=3306 \
+              -e DB_USER=${{ secrets.DB_USER }} \
+              -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
+              -e DB_NAME=galae_malae \
               -p 8082:8082 \
               galaemalae-app:latest || { echo "❌ 컨테이너 실행 실패"; exit 1; }
             echo "== (6) 컨테이너 로그 확인 (마지막 100줄) =="
