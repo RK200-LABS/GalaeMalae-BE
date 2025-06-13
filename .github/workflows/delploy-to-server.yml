@@ -21,9 +21,12 @@ jobs:
       - name: Create SSH directory # .ssh 디렉토리 생성
         run: | 
           mkdir -p ~/.ssh
-      - name: Add known host # known host에 해당 키를 추가
+      - name: Add known host
         run: |
-          ssh-keyscan -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+          ssh-keyscan -p ${{ secrets.SSH_PORT }} \
+            -t rsa,ecdsa,ed25519 \
+            ${{ secrets.SSH_HOST }} \
+            >> ~/.ssh/known_hosts
       - name: Copy files to remote server # github repo의 모든 파일을 target 경로에 복사함.
         run: |
           cd ${{ github.workspace }}
