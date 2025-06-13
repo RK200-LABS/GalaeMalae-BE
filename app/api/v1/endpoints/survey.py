@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from app.core.survey import build_profile, run_recommendation
 from app.db.session import get_db
 from app.schemas.survey import SurveySubmit, SurveyResult
+
 router = APIRouter()
 
 @router.post("/submit", response_model=SurveyResult)
