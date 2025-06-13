@@ -16,11 +16,9 @@ jobs:
 
       - name: Create SSH Key
         run: | # access key를 actions 내부 워크스페이스에 pem파일로 저장하고 권한을 확보
+          mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/ralo.pem
           chmod 600 ~/.ssh/ralo.pem
-      - name: Create SSH directory # .ssh 디렉토리 생성
-        run: | 
-          mkdir -p ~/.ssh
       - name: Add known host
         run: |
           ssh-keyscan -p ${{ secrets.SSH_PORT }} \
