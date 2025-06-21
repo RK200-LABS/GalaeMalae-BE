@@ -4,11 +4,12 @@ import json
 
 # Gemini API 키 설정은 애플리케이션 시작점에서 한 번만 호출하는 것이 가장 좋습니다.
 # (예: app/main.py). 여기서도 호출은 가능합니다.
-if not os.getenv("GEMINI_API_KEY"):
+# 공식 환경변수명인 GOOGLE_API_KEY를 사용합니다.
+if not os.getenv("GOOGLE_API_KEY"):
     from dotenv import load_dotenv
     load_dotenv()
 
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 
 def create_travel_plan(destination: str, schedule: str) -> dict:

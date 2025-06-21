@@ -8,13 +8,6 @@ import os
 # .env 파일 로드
 load_dotenv()
 
-# --- 디버깅 코드 추가 ---
-gemini_key = os.getenv("GEMINI_API_KEY")
-print("="*50)
-print(f"Loaded GEMINI_API_KEY: {gemini_key}")
-print("="*50)
-# ---------------------
-
 app = FastAPI(
     title="GalaeMalae API",
     description="GalaeMalae Backend API",
