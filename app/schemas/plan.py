@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
 
-class destination(BaseModel):
-    name : str
+class PlanRequest(BaseModel):
+    destination: str
+    schedule: str

@@ -1,12 +1,19 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api.v1.endpoints import users, survey, auth
+from app.api.v1.endpoints import users, survey, auth, plan
 from app.db.init_db import init_db
 from dotenv import load_dotenv
 import os
 
 # .env 파일 로드
 load_dotenv()
+
+# --- 디버깅 코드 추가 ---
+gemini_key = os.getenv("GEMINI_API_KEY")
+print("="*50)
+print(f"Loaded GEMINI_API_KEY: {gemini_key}")
+print("="*50)
+# ---------------------
 
 app = FastAPI(
     title="GalaeMalae API",
