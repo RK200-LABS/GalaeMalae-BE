@@ -1,4 +1,4 @@
--r base.txt
+﻿-r base.txt
 
 # 개발 도구
 pytest==7.4.3
