@@ -25,7 +25,6 @@ app.add_middleware(
 
 # API 라우터 등록
 app.include_router(auth.router, prefix="/api/v1/auth", tags=["authentication"])
-app.include_router(users.router, prefix="/api/v1/users", tags=["users"])
 app.include_router(survey.router, prefix="/api/v1/survey", tags=["survey"])
 app.include_router(plan.router, prefix="/api/v1/plan", tags=["plan"])
 
