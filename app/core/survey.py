@@ -84,6 +84,10 @@ def run_recommendation(profile: Dict[str, int], db: Session, top_n: int = 3) -> 
         if dest:
             recommendations.append({
                 "name": dest.name,
+                "description": dest.description,
+                "country" : dest.country,
+                "latitude" : dest.latitude,                
+                "longitude" : dest.longitude,
                 "score": total_score
             })
     return recommendations

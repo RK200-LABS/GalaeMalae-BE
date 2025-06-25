@@ -2,7 +2,11 @@ from pydantic import BaseModel
 from typing import List
 class Recommendation(BaseModel):
     name: str
+    description : str
     score: int
+    country : str
+    latitude : float          
+    longitude : float
 
 class SurveySubmit(BaseModel):
     q1: str

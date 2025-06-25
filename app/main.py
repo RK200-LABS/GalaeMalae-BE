@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api.v1.endpoints import survey, auth
+from app.api.v1.endpoints import survey, auth, plan
 from app.db.init_db import init_db
 from dotenv import load_dotenv
 import os
@@ -26,6 +26,7 @@ app.add_middleware(
 # API 라우터 등록
 app.include_router(auth.router, prefix="/api/v1/auth", tags=["authentication"])
 app.include_router(survey.router, prefix="/api/v1/survey", tags=["survey"])
+app.include_router(plan.router, prefix="/api/v1/plan", tags=["plan"])
 
 @app.get("/")
 async def root():
