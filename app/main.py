@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api.v1.endpoints import users, survey, auth, plan
+from app.api.v1.endpoints import survey, auth, plan
 from app.db.init_db import init_db
 from dotenv import load_dotenv
 import os
