@@ -32,7 +32,7 @@ pip install -r requirements/dev.txt
 ```
 # Database settings
 MYSQL_USER=root
-MYSQL_PASSWORD=9177
+MYSQL_PASSWORD=-
 MYSQL_HOST=localhost
 MYSQL_PORT=3306
 MYSQL_DATABASE=galae_malae
